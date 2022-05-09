@@ -52,7 +52,6 @@ CHOICES = (
     ('Pending','Pending'),
     ('Rejected','Rejected'),
     ('Approved','Approved'),
-    ('Picked By Courier','Picked By Courier'),
     ('On The Way','On The Way'),
     ('Delivered','Delivered')
 )
