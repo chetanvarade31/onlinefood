@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block title %}Hotels{% endblock title %}
+
+{% block blog %}
+
+{% endblock blog %}
+{% block foodmenu %}
+{% for hotels in obj %}
+    <div class="container hotel ">
+        <h3 class="text-center hotel">Food Menue Of {{hotels.name}} !</h3>
+        <hr>
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card bg-dark text-white opacity-75 hotel ">
+
+                <img src=" {{hotels.photo.url}}" class="card-img" alt="..." height="600" width="600">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-center">{{hotels.name}}</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci totam ipsam sed,
+                        quod nihil sunt reprehenderit, deserunt itaque qui neque vel quibusdam explicabo placeat provident
+                        aliquid enim veniam corporis dolorum molestiae magni commodi fuga atque ea? Accusantium, eius sit?
+                        Voluptate, error deserunt quaerat autem reprehenderit libero quos eos quae natus repudiandae
+                        eligendi nihil quibusdam ad totam necessitatibus officia tenetur. Ipsum rerum earum laudantium, vel,
+                        modi in labore corporis sequi suscipit culpa ipsa beatae blanditiis dolorum natus similique eligendi
+                        asperiores repudiandae corrupti quod sunt et quae expedita! Omnis soluta est tempora cumque
+                        explicgit natus. Suscipit optio expedita ad minus explicabo, temporibus quia
+                        ullam consequatur aperiam, est commodi officiis, magni quibusdam nihil accusantium iusto perferendis
+                       nus illo, consectetur accusantium illum culpa adipisci ex, corrupti odio quia..</p>
+                    <p class="card-text">Last updated 3 mins ago</p>
+                    
+               
+                </div>
+            </div>
+        </div>
+        
+        <br>
+
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+
+            <section class="services">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service-item text-center">
+                                <a href="{% url 'breakfast' hotels.name %}">
+                                    <img src="/Apk/static/img/cook_breakfast.png" alt="Breakfast">
+                                    <br><br>
+                                    <h4 class="color">Breakfast</h4>
+
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service-item text-center">
+                                <a href="{% url 'lunch' hotels.name %}">
+                                    <img src="/Apk/static/img/cook_lunch.png" alt="Lunch">
+                                    <br><br>
+                                    <h4 class="color">Lunch</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service-item text-center">
+                                <a href="{% url 'dinner' hotels.name %}">
+                                    <img src="/Apk/static/img/cook_dinner.png" alt="Dinner">
+                                    <br><br>
+                                    <h4 class="color">Dinner</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service-item text-center">
+                                <a href="{% url 'dessert' hotels.name %}">
+                                    <img src="/Apk/static/img/cook_dessert.png" alt="Desserts">
+                                    <br><br>
+                                    <h4 class="color">Desserts</h4>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+    <div class="shadow-lg p-3 mb-5 bg-body rounded g-0">
+        <div class="container">
+            <div class="card text-center g-lg-3 g-sm-4 g-3 hotel ">
+                <img src="{{hotels.photo.url}}" class="card-img-top"  alt="Responsive image"  height="356">
+                <div class="card-body text-center">
+                    <hr>
+                    <h2>Book Table</h2>
+                    <p class="text-warning hotel-p">We have {{hotels.table}} Tables Available</p>
+                    {% if messages %}
+                        
+                            
+                            
+                            {% for msg in messages  %}
+                                <div class="alert alert-danger" role="alert">
+                                    
+                                    <p class="hotel-p">{{msg}}</p>
+                                </div>
+                            {% endfor %}
+                        
+                    {% endif %}
+                    
+                    <form  method="POST" novalidate>
+                        {% csrf_token %}
+                        {% for non_fiels_error in form.non_field_errord %}
+                            <p class="hotel-p">{{non_field_error}}</p>
+
+                        {% endfor %}
+                        {% for field in form %}
+                            <div class="container m-4">
+                                {{field}}
+                                
+                            </div>
+                            {% for error in field.errors %}
+                                <p class="hotel-p">{{error}}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        
+
+                        <input type="text" for='hotel_name' name="hotel_name" value="{{hotels.name}}" hidden>
+                        <button name="tableform" class="btn btn-primary hotel-button" type="submit">Submit</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+<div class="container">
+    <h2 class="text-center" >Submit Your Feedback Plz</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+            <div class="container justify-center" >
+                {{rform.message}}
+            </div>
+            
+        <div class="text-center m-2">
+            <button name="reivewform" class="btn btn-outline-success">Submit</button> 
+        </div>
+    </form>
+</div>
+<hr>
+
+<div class="container my-2 ">
+    <h2 class="text-center">Customer Feedbacks</h2>
+    {% for reviews in feedbacks %}
+    
+        <div class="card">
+            <div class="card-header ">
+                {{reviews.date}}
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                <p>{{reviews.message}}</p>
+                <footer class="blockquote-footer">{{reviews.user}} <cite title="Source Title">Source Title</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+    
+</div>
+
+{% endblock foodmenu %}
+{% block wecook %}{% endblock wecook %}
+
+{% block booktable %}{% endblock booktable %}

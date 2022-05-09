@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% block title %}SignUp{% endblock title %}
+{% block banner %}
+    
+{% endblock banner %}
+
+{% block wecook %}{% endblock wecook %}
+{% block foodmenu %}
+<section class="vh-100" style="background-color: #eee;">
+    
+
+	<div class="row m-0" >
+		<div class="col-md-8 mb-4">
+		<div class="card mb-4">
+			<div class="card-header py-3">
+			<h3 class="text-center">Biling details</h3>
+			<hr>
+			<br>
+			</div>
+			<div class="card-body">
+			<form>
+				{% for f in fm %}
+											
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">Name : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.full_name}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">Mobile : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.mobile}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">Address : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.address}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">City : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.city}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">District : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.district}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">State : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.state}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">Gender : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.gender}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-sm-3">
+							<h5 class="mb-0">Zipcode : </h5>
+						</div>
+						<div class="col-sm-9 text-secondary">
+							<h5>{{f.zipcode}}</h5>
+						
+							<br>
+							<!-- <input type="" name="" form="" hht> -->
+						</div>
+					</div>
+				{% endfor %}
+				<!-- 2 column grid layout with text inputs for the first and last names -->
+					
+			</form>
+			</div>
+		</div>
+		</div>
+	
+		<div class="col-md-4 mb-4">
+		<div class="card mb-4">
+			<div class="card-header py-3">
+			<h5 class="text-center">Summary</h5>
+			</div>
+			<div class="card-body">
+			<ul class="list-group list-group-flush">
+				<li
+				class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+				Products Name : 
+				<span style="color: green;">{{form.name}}</span>
+				</li>
+				<li
+				class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+				Products Price : 
+				<span style="color: green;">{{form.discounted_price}}</span>
+				</li>
+
+				<li
+				class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+				Products Quantity : 
+				<span style="color: green;"> {{quant}}</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+				Shipping Charge : 
+				<span style="color: green;">Rs. 30</span>
+				</li>
+				<li
+				class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+				<div>
+					<strong>Total amount</strong>
+					<strong>
+					<p class="mb-0">(including GST)</p>
+					</strong>
+				</div>
+				<span><strong>Rs. {{total}}</strong></span>
+				</li>
+			</ul>
+			<form action="/order/{{form.id}}/{{quant}}" method="POST" id="myform">
+				{% csrf_token %}
+				<button type="submit" id="rzp-button1" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+
+
+			</form>
+	
+			
+			<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+			<script>
+			var options = {
+				"key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
+				"amount": "{{total}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+				"currency": "INR",
+				"name": "Safe Payment",
+				"description": "{{product_name}}",
+				
+				"order_id": "{{payment_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+				"handler": function (response){
+					alert(response.razorpay_payment_id);
+					alert(response.razorpay_order_id);
+					alert(response.razorpay_signature);
+					document.getElementById('myform').submit();
+					
+
+				
+					
+
+				},
+				"prefill": {
+					"name": "Chetan Varade",
+					"email": "chetanvarade@gmail.com",
+					"contact": "9766121543"
+				},
+				"notes": {
+					"address": "Razorpay Corporate Office"
+				},
+				"theme": {
+					"color": "#3399cc"
+				}
+			};
+			var rzp1 = new Razorpay(options);
+			rzp1.on('payment.failed', function (response){
+					alert(response.error.code);
+					alert(response.error.description);
+					alert(response.error.source);
+					alert(response.error.step);
+					alert(response.error.reason);
+					alert(response.error.metadata.order_id);
+					alert(response.error.metadata.payment_id);
+			});
+			document.getElementById('rzp-button1').onclick = function(e){
+				rzp1.open();
+				e.preventDefault();
+			}
+			</script>
+
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+{% endblock foodmenu %}
+{% block payment %}{% endblock payment %}
+{% block booktable %}{% endblock booktable %}
+{% block featured %}{% endblock featured %}
+{% block blog %}{% endblock blog %}
+{% block signup %}{% endblock signup %}
+
+
+{% block footer %}{% endblock footer %} 
+
+

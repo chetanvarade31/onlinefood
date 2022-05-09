@@ -1,0 +1,20 @@
+a { 
+    text-decoration: none;
+    
+}
+
+div:hover.hotel { 
+    background-color: #e03e3e;
+    color:white;
+    text-shadow: aqua;
+    text-decoration: dotted;
+    
+}
+
+.hotel-button {
+    background-color:rgb(15 25 125);
+    color:whitesmoke
+}
+.hotel-p {
+    color:#38121f
+}
