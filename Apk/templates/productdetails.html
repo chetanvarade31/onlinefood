@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block banner %}
+
+{% endblock banner %}
+{% block wecook %}{% endblock wecook %}
+{% block booktable %}{% endblock booktable %}
+{% block blog %}
+
+  {% for pro in product %}
+    <div class="row row-cols-lg-2 row-cols-sm-1 row-cols-md-2 row-cols-1 m-0">
+      <div class="col">
+        
+        <img src="{{pro.product_image.url}}" class="img-fluid" alt="Responsive image">  
+        
+
+      </div>  
+      
+      <div class="col">
+        <h3 class="text-center">{{pro.name}}</h3>
+        <p>{{pro.description}}</p>
+        <p>Price : {{pro.discounted_price}} Rs.</p>
+        
+        <object data="" type="" name=""> hel</object>
+        
+        <form action="/payment/{{pro.id}}" >
+          {% csrf_token %}
+          <pre><button type="button" class="btn btn-outline-info border" style="font-size: x-large;" onclick="Plusfunction()">+</button> <input type="text" id="quant" name="quant" style="display: inline;font-weight: bolder; font-size: x-large; width: 50px; text-align: center;background-color: rgb(239, 233, 245);" value="1"  > <button type="button" class="btn btn-outline-info border" style="font-size: x-large;" onclick="Minusfunction()">-</button></pre>
+          <button type="submit" class="btn btn-outline-success">Order Now</button>
+        </form>
+      </div>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock blog %}
+

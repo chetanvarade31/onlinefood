@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Breakfast{% endblock title %}
+
+{% block blog %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <h3 class="text-center">BreakFast</h3>
+
+        <div class="row row-cols-3 row-cols-sm-4 row-cols-md-5 g-3">
+            
+            {% for breakfast in product %}
+                <div class="col">
+                    <a style="text-decoration: none;" href="{% url 'productdetails' breakfast.id %}">
+                        <div class="card shadow-sm">
+                            <img src="{{breakfast.product_image.url}}" alt="image">
+                            
+    
+                            <div class="card-body">
+                                <p class="card-text text-center">{{breakfast.name}}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small>130RS</small>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+            {% endfor %}
+
+                
+        </div>
+    </div>
+</div>
+{% endblock blog %}
+{% block foodmenu %}{% endblock foodmenu %}
+{% block wecook %}{% endblock wecook %}
+
+{% block booktable %}{% endblock booktable %}
+
+
+
+
+

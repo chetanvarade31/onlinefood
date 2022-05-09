@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}SignUp{% endblock title %}
+{% block banner %}
+
+{% endblock banner %}
+
+{% block delicious %}{% endblock delicious %}
+{% block wecook %}{% endblock wecook %}
+{% block foodmenu %}
+
+
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-pills card-header-pills">
+        <li class="nav-item">
+          <a class="nav-link m-lg-2 m-2" style="background-color: rgb(177, 234, 177); color: rgb(86, 7, 52);" href="{% url 'signin' %}">Sign In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link m-lg-2 m-2" style="background-color: rgb(177, 234, 177); color: rgb(86, 7, 52);" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign In</p>
+
+      <form class="mx-1 mx-md-4" method="post" novalidate>
+        {% csrf_token %}
+
+        <p class="help is-danger">{{msg}}</p>
+
+
+        {% for non_field_error in form.non_field.errors %}
+        <p class="help is-danger">{{non_field_error}}non field error </p>
+        {% endfor %}
+        {% for field in form %}
+
+        <div class="d-flex flex-row align-items-center mb-4">
+          <div class="form-outline flex-fill mb-0">
+
+
+            {{field}}
+            {% if field.help_text %}
+            <p class="help">{{field.help_text}}</p>
+            {% endif %}
+            {% for error in field.errors %}
+            <p class="help is-danger" style="color: red;">{{error}}</p>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+        <br><br>
+        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+          <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+
+        </div>
+
+      </form>
+
+
+    </div>
+  </div>
+</div>
+{% endblock foodmenu %}
+{% block payment %}{% endblock payment %}
+{% block booktable %}{% endblock booktable %}
+{% block featured %}{% endblock featured %}
+{% block blog %}{% endblock blog %}
+{% block signup %}{% endblock signup %}
+
+
+{% block footer %}{% endblock footer %}

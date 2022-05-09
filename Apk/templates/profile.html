@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block banner %}
+
+{% endblock banner %}
+{% block wecook %}{% endblock wecook %}
+{% block head %}
+{{ block.super }}
+<link rel="canonical" href="https://getbootstrap.com/docs/5.0/components/navbar/">
+
+<!-- <link  rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">  -->
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="canonical" href="https://getbootstrap.com/docs/5.0/components/navbar/">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://www.bootdey.com/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="135x140" href="https://www.bootdey.com/img/bootdey_135x140.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://www.bootdey.com/img/bootdey_76x76.png">
+<link rel="canonical" href="https://www.bootdey.com/snippets/preview/Order-history?full-screen=true" itemprop="url">
+<script src="/cache-js/cache-1635427806-97135bbb13d92c11d6b2a92f6a36685a.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+    <div id="snippetContent">
+
+        {% endblock head %}
+
+        {% block delicious %}{% endblock delicious %}
+        {% block foodmenu %}
+        <div class="container m-2">
+            <div class="main-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
+                                        style="border-radius: 5%;" width="110">
+
+                                    <div class="mt-3">
+                                        {% for f in fm %}
+                                        <h4>{{f.full_name}}</h4>
+                                        <h5>{{f.mobile}}</h5>
+                                        <p class="text-muted font-size-sm">{{f.address}}</p>
+
+                                        <h1><a href="{% url 'signout' %}"><i
+                                                    style="font-size: 50px; color: rgb(143, 20, 20);"
+                                                    class="fa fa-sign-out"></i></a></h1>
+                                        <h1><a href="{% url 'order' %}"><i
+                                                    style="font-size: 50px; color: rgb(143, 20, 20);"
+                                                    class="fa fa-calendar-check-o"></i> </a></h1>
+                                        <!-- <button style="font-size:24px">Button <i class="fa fa-sign-out"></i></button> -->
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <h3 class="text-center">Update Profile</h3>
+                            <hr>
+
+                            <br>
+                            <div class="card-body">
+                                {% comment %} {% if messages.success %}
+                                    {% for msg in messages.success %}
+
+                                        <p class="alert-danger text-center">{{msg}}</p>
+
+                                    {% endfor %}
+                                {% endif %} {% endcomment %}
+                                <form action="" method="post" novalidate>
+                                    {% csrf_token %}
+                                    {% for non_field_error in form.non_field.errors %}
+                                    <p class="help is-danger">{{non_field_error}}</p>
+
+                                    {% endfor %}
+                                    {% for field in form %}
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h5 class="mb-0">{{field.html_name}}</h5>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{field}}
+
+                                            {% if field.help_text %}
+                                            <p class="help is-danger">{{field.help_text}}</p>
+                                            {% endif %}
+                                            {% for error in field.errors %}
+                                            <p class="help is-danger">{{error}}</p>
+                                            {% endfor %}
+                                            <br>
+                                            <!-- <input type="" name="" form="" hht> -->
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <br><br>
+                                            <input type="submit" class="btn btn px-4"
+                                                style="background-color: rgb(143, 20, 20); color: white;"
+                                                value="Save & Update">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <h3 class="text-center">Profile Details</h3>
+                                    <hr>
+                                    <br>
+
+                                    <div class="card-body">
+
+                                        {% for f in fm %}
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">Name : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.full_name}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">Mobile : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.mobile}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">Address : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.address}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">City : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.city}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">District : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.district}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">State : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.state}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">Gender : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.gender}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h5 class="mb-0">Zipcode : </h5>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <h5>{{f.zipcode}}</h5>
+
+                                                <br>
+                                                <!-- <input type="" name="" form="" hht> -->
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="card m-3">
+        <div class="card-header">
+            <h2 class="text-center">Reserved Tables</h2>
+        </div>
+        {% if messages %}
+            {% for msg in messages  %}
+            <div class="alert alert-info" role="alert">
+                <p class="text-center">{{msg}}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card-body">
+                <div class="container">
+                    <div class="row  rows-cols-sm-5 g-0">
+                        <div class="col">
+                            <h6>Hotel Name</h6>
+                        </div>
+
+                        <div class="col">
+                            <h6>Persons</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Booked Tables</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Date</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Time</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    {% for reserved_table in tables %}
+                        <div class="row rows-cols-sm-5 g-0">
+                            <div class="col">
+                                {% comment %} <h3>Hotel Name</h3> {% endcomment %}
+                                {{reserved_table.hotel_name}}
+                            </div>
+                            <div class="col">
+                                {% comment %} <h3>No of Tables</h3> {% endcomment %}
+                                {{reserved_table.persons}}
+                            </div>
+                            <div class="col">
+                                {% comment %} <h3>No of person</h3> {% endcomment %}
+                                {{reserved_table.tables}}
+                            </div>
+                            <div class="col">
+                                {% comment %} <h3>Date</h3> {% endcomment %}
+                                {{reserved_table.date}}
+                            </div>
+                            <div class="col">
+                                {% comment %} <h3>Time</h3> {% endcomment %}
+                                {{reserved_table.time}}
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% endblock foodmenu %}
+    {% block payment %}{% endblock payment %}
+    {% block booktable %}{% endblock booktable %}
+    {% block featured %}{% endblock featured %}
+    {% block blog %}{% endblock blog %}
+    {% block signup %}{% endblock signup %}
+
+
+    {% block footer %}{% endblock footer %}
