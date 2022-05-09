@@ -281,7 +281,7 @@ def hotels(request,name = None):
                 print(name)
                 robj = Reviews(hotel_name = name,user = request.user,message = mes)
                 robj.save()
-                print('saved')
+                
 
                 fm = TableForm()
     else:
