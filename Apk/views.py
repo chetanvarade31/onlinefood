@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from pandas import cut
+
 from Apk.forms import ReviewForm, SignInform, SignUpForm, TableForm, UserInfo
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -254,9 +254,9 @@ def hotels(request,name = None):
                 table = Hotels.objects.filter(name = hotel_name).values('table')
                 table = table[0]
                 table_val = table['table']
-                print(table_val)
+                
                 if table_val == 0 or table_val < tables :
-                    print('run')
+                    
                     if table_val == 0:
 
                         messages.success(request,'All tables are booked')
@@ -264,14 +264,14 @@ def hotels(request,name = None):
                         messages.warning(request,' Sorry !! We have not enough tables')
                 else:    
                     # update the table value after booking the tables
-                    print('else')
+                    
                     table_val = table_val - tables
                     Hotels.objects.filter(name = hotel_name).update(table = table_val)
                     
                     obj = Table(user = user,name = name,persons = persons,tables = tables, date = date, time= time,mobile = mobile, hotel_name = hotel_name )
                     obj.save()
-                    print('book')
-                    # return redirect("/profile/")
+                    
+                    return redirect("/profile/")
 
         if 'reivewform' in request.POST:
 
