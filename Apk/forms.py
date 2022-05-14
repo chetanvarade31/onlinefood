@@ -53,5 +53,5 @@ class TableForm(forms.Form):
 
 
 class ReviewForm(forms.Form):
-    message = forms.CharField(widget= forms.Textarea(attrs= {'class':'form-control','Placeholder':'Enter your review here'}))
+    message = forms.CharField(widget= forms.Textarea(attrs= {'class':'form-control','Placeholder':'Type Here !!'}))
     
