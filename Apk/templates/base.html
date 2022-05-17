@@ -134,9 +134,10 @@
 
 
                         </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        <form class="d-flex" action="/zpcode" method="POST">
+                            {% csrf_token %}
+                            <input class="form-control me-2" type="search" name="search" placeholder="serarch hotel name" aria-label="Search" required>
+                            <button class="btn btn-outline-success" type="submit" name="searchbutton">Search</button>
                         </form>
                     </div>
                 </div>
@@ -231,7 +232,10 @@
     <div id="hotel" class="album py-5 bg-light">
         <div class="container">
             <h3 class="text-center">Hotels</h3>
-            <pre><a href="{% url 'home' %}"><button class="btn btn-outline-success " >All</button>  </a> <form action="/zpcode" method="POST" style="display: inline;" action="">{% csrf_token %} <button class="btn btn-outline-success" type="submit">Zipcode</button></form></pre>
+            {% if request.user.is_authenticated %}
+                <pre><a href="{% url 'home' %}"><button class="btn btn-outline-success " >All</button>  </a> <form action="/zpcode" method="POST" style="display: inline;" action="">{% csrf_token %} <button class="btn btn-outline-success" type="submit" name="zipbutton">Zipcode</button></form></pre>
+
+            {% endif %}
             {% if messages %}
                 {% for msg in messages %}
                     <p class="alert-secondary text-center">{{msg}}</p>
