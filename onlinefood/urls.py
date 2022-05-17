@@ -37,6 +37,7 @@ urlpatterns = [
     path('payment/<slug:data>',views.payment, name= 'payment'),
     path('order/',views.order, name= 'order'),
     path('order/<slug:id>/<int:qun>',views.order, name= 'order'),
+    path('ordercancel/<slug:id2>',views.ordercancel, name= 'ordercancel'),
     path('signup/',views.signup,name='signup'),
     path('signin/',views.signin,name='signin'),
     path('profile/',views.profile,name='profile'),

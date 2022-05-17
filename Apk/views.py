@@ -1,5 +1,7 @@
 
 
+from email import message
+from http import server
 from http.client import REQUEST_URI_TOO_LONG
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -21,17 +23,25 @@ from onlinefood.settings import RAZORPAY_API_KEY, RAZORPAY_API_SECRET_KEY
 
 def index(request,zpcode = None):
 
-    if zpcode is not None:
-         
-        cust = Customer.objects.get(user = request.user)
-        zpcode = cust.zipcode
-        hotels = Hotels.objects.filter(zipcode = zpcode)
-        
-        if hotels.exists() is False:
+    if request.method == "POST":
+        if 'zipbutton' in request.POST:
+            cust = Customer.objects.get(user = request.user)
+            zpcode = cust.zipcode
+            hotels = Hotels.objects.filter(zipcode = zpcode)
+            
+            if hotels.exists() is False:
 
-            messages.success(request,'No Hotel Found In Your Area !!')
-        
-        
+                messages.success(request,'No Hotel Found In Your Area !!')
+            
+            
+        if 'searchbutton' in request.POST:
+            search = request.POST.get('search')
+            
+            hotels = Hotels.objects.filter(name = search)
+            if hotels.exists() is False:
+    
+                messages.success(request,'No Hotel Found Of This Name!!')
+            
     else:
         hotels = Hotels.objects.all()
     
@@ -128,8 +138,20 @@ def order(request,id = None, qun = None):
     
 
     order = Order.objects.all()
+    bol_order = Order.objects.exists()
+    print(bol_order)
+    if bol_order == False:
+        messages.warning(request,'No Order !!')
 
     return render(request, 'order.html',{'order': order})
+
+
+def ordercancel(request,id2 = None):
+    Order.objects.filter(user = request.user).filter(id = id2).delete()
+    print('delete succseefully')
+    
+
+    return redirect('/order/')
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -239,7 +261,7 @@ def hotels(request,name = None):
         
         
         rfm = ReviewForm(request.POST)
-
+        
         if 'tableform' in request.POST:
             fm = TableForm(request.POST)
             if fm.is_valid():
